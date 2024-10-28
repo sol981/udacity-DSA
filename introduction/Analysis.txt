@@ -1,0 +1,104 @@
+# Task0:
+complexity 1     with open('P0/texts.csv', 'r') as f:
+complexity O(n) (n - row for reading n line in file csv) reader = csv.reader(f)
+complexity O(n) (n - row for converting to list ) texts = list(reader)
+complexity 1     print("First record of texts, " + texts[0][0] + " texts " + texts[0][1] + " at time " + texts[0][2])
+-> time complexity: 2 + 2* O(n) = O(n)
+-> space complexity: 2 * O(n) for (reader,texts) = O(n), no need stack to save data 
+
+similar with open & read calls.csv
+- conclussion:
+time complexity: O(n)
+space complexity: O(n)
+
+# Task1:
+O(n) - reader = csv.reader(f)
+O(n) -  texts = list(reader)
+O(n) - for row in texts:
+        avg O(1)        unique_tele_nums.add(row[0])
+        avg O(1)        unique_tele_nums.add(row[1])
+
+similar with open & read calls.csv
+- conclussion:
+time complexity: O(n)
+space complexity: O(n)
+
+# Task2:
+O(1) with open('P0/texts.csv', 'r') as f:
+O(n)    reader = csv.reader(f)
+O(n)    texts = list(reader)
+
+O(n)    reader = csv.reader(f)
+O(n)    calls = list(reader)
+1    maxTime = 0
+1    number = 0
+
+O(n) for row in calls:
+        avg O(1) phone_dict[row[0]] = phone_dict.get(row[0], 0) + int(row[3])
+        avg O(1)  phone_dict[row[1]] = phone_dict.get(row[1], 0) + int(row[3])
+
+O(n)    number = max(phone_dict, key = lambda k: phone_dict[k])
+
+O(1)    print(str(number) 
+
+- conclussion:
+-> time complexity = 4 + 6 * O(n) = O(n)
+-> space complexity: reader + calls/texts: 2O(n) + 2O(n) = O(n)
+
+# Task3:
+1 with open('P0/texts.csv', 'r') as f:
+O(n)    reader = csv.reader(f)
+O(n)    texts = list(reader)
+
+1       with open('P0/calls.csv', 'r') as f:
+O(n)    reader = csv.reader(f)
+O(n)    calls = list(reader)
+1       lst = []
+1       count = 0
+O(n)    for row in calls:
+        if row[0][0:5] == "(080)":
+          # get prefix of number (row[10] then add to list 
+O(n)          lst.append(getPrefix(row[1]))
+          if row[1][0:5] == "(080)":
+            count+=1
+
+O(n)    mylist = list(dict.fromkeys(lst))
+1       print("The numbers called by people in Bangalore have codes:")
+O(n) + O(nlogn) (sorted)   for item in sorted(mylist):
+1       print(item)
+
+- conclussion:
+-> time complexity: O(n)
+-> space complexity: O(n) 
+
+# Task4:
+O(1) with open('P0/texts.csv', 'r') as f:
+O(n)    reader = csv.reader(f)
+O(n)    texts = list(reader)
+
+1       with open('P0/calls.csv', 'r') as f:
+O(n)    reader = csv.reader(f)
+O(n)    calls = list(reader)
+1    marketer = []
+
+O(n)    for row in calls:
+        check = True
+    O(n)    for text in texts:
+            if row[0] == text[0] or row[0] == text[1]:
+                check = False
+
+    O(n)    for item in calls:
+            if row[0] == item[1]:
+                check = False
+
+1        if check == True:
+1            marketer.append(row[0])
+    
+O(n)    mylist = list(dict.fromkeys(marketer))
+O(1)    print("These numbers could be telemarketers: ")
+O(n) + O(nlogn) (sorted)    for item in sorted(mylist):
+O(1)        print(item)
+
+- conclussion:
+-> time complexity: 7 + 4 * O(n) + O(n) * ( O(n) + O(n)) + O(n) + O(n) + O(nlogn) = O(n^2)
+-> space complexity: O(n)

@@ -4,13 +4,45 @@ It's ok if you don't understand how to read files.
 """
 import csv
 
-with open('texts.csv', 'r') as f:
+def getPrefix(str):
+    ret = ""
+    if str[0] == '(':
+        i = 0
+        while str[i] != ')':
+            ret += str[i]
+            i+=1
+        ret += ')'
+           
+    else:
+        if str[0:3] == '140': # marketer start 140
+          ret = '140'
+        else: # mobile start 7,8,9 
+          for i in range(4):
+             ret += str[i] 
+    return ret
+
+with open('P0/texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
 
-with open('calls.csv', 'r') as f:
+with open('P0/calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    lst = []
+    count = 0
+    for row in calls:
+        if row[0][0:5] == "(080)":
+          # get prefix of number (row[10] then add to list 
+          lst.append(getPrefix(row[1]))
+          if row[1][0:5] == "(080)":
+            count+=1
+
+    mylist = list(dict.fromkeys(lst))
+    print("The numbers called by people in Bangalore have codes:")
+    for item in sorted(mylist):
+       print(item)
+    
+    print(str(round(count * 100 / len(lst), 2)) + " percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
 
 """
 TASK 3:
